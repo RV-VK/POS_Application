@@ -45,4 +45,14 @@ public class Purchase {
     public void setGrandtotal(double grandtotal) {
         this.grandtotal = grandtotal;
     }
+
+    @Override
+    public String toString() {
+        return "Purchase{" +
+                "purchaseID=" + purchaseID +
+                ", date=" + date +
+                ", purchaseItems=" + purchaseItems +
+                ", grandtotal=" + grandtotal +
+                '}';
+    }
 }

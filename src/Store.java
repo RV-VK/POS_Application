@@ -3,12 +3,34 @@ public class Store {
     private long phoneNumber;
     private String Address;
     private int GSTCode;
+    private double investment;
 
-    public Store(String name, long phoneNumber, String address, int GSTCode) {
+    public double getInvestment() {
+        return investment;
+    }
+
+    public void setInvestment(double investment) {
+        this.investment = investment;
+    }
+
+    public double getCurrentBalance() {
+        return currentBalance;
+    }
+
+    public void setCurrentBalance(double currentBalance) {
+        this.currentBalance = currentBalance;
+    }
+
+    private double currentBalance;
+
+    public Store(String name, long phoneNumber, String address, int GSTCode,double investment) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         Address = address;
         this.GSTCode = GSTCode;
+       this.investment=investment;
+       this.currentBalance=investment;
+
     }
 
     public String getName() {
@@ -25,6 +47,18 @@ public class Store {
 
     public void setPhoneNumber(long phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "Store{" +
+                "name='" + name + '\'' +
+                ", phoneNumber=" + phoneNumber +
+                ", Address='" + Address + '\'' +
+                ", GSTCode=" + GSTCode +
+                ", investment=" + investment +
+                ", currentBalance=" + currentBalance +
+                '}';
     }
 
     public String getAddress() {
