@@ -1,12 +1,17 @@
 public class Unit {
     private String name;
-    private String Description;
     private boolean isDividable;
 
-    public Unit(String name, String description, boolean isDividable) {
+    public Unit(String name) {
         this.name = name;
-        Description = description;
-        this.isDividable = isDividable;
+        if(name.equalsIgnoreCase("Pieces")||name.equalsIgnoreCase("Pack"))
+        {
+            this.isDividable=false;
+        }
+        else {
+            this.isDividable=true;
+        }
+
     }
 
     public String getName() {
@@ -17,13 +22,7 @@ public class Unit {
         this.name = name;
     }
 
-    public String getDescription() {
-        return Description;
-    }
 
-    public void setDescription(String description) {
-        Description = description;
-    }
 
     public boolean isDividable() {
         return isDividable;

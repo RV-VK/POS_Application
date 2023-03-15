@@ -1,3 +1,6 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -54,5 +57,11 @@ public class Sales {
 
     public void setPaymode(paymentMode paymode) {
         this.paymode = paymode;
+    }
+
+    public void sell() throws ClassNotFoundException, SQLException {
+        Class.forName("org.postgresql.Driver");
+        Connection salesConnection= DriverManager.getConnection("jdbc:postgresql://localhost:5432/POSDatabase","postgres","manikantan1205");
+
     }
 }
