@@ -1,6 +1,4 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -125,18 +123,28 @@ public class Purchase {
             }
             Date date=new Date();
             Purchase purchase=new Purchase(date,purchaseItemList,totalPurchasePrice);
-            System.out.println("BOOYAH PURCHASE COMPLETED!\n");
+            System.out.println("BOOYAH! PURCHASE COMPLETED!\n");
             System.out.println("--------PURCHASE BILL---------");
             System.out.println("PURCHASE ID : "+purchase.getPurchaseID());
-            System.out.println("|     PRODUCT      |\t|QUANTITY|\t|PRICE|");
+            System.out.println("PRODUCT\t\tQUANTITY\t\t|PRICE|");
             for(PurchaseItem purchaseItem:purchaseItemList)
             {
-                System.out.print("|"+purchaseItem.getProduct().getName()+"|\t");
-                System.out.print("|"+purchaseItem.getQuantity()+"|\t\t");
-                System.out.print("|"+purchaseItem.getUnitPurchasePrice()*purchaseItem.getQuantity()+"|");
+                System.out.print(purchaseItem.getProduct().getName()+"\t");
+                System.out.print(purchaseItem.getQuantity()+"\t\t");
+                System.out.print(purchaseItem.getUnitPurchasePrice()*purchaseItem.getQuantity());
                 System.out.println();
             }
             System.out.println("------GRAND PRICE : "+totalPurchasePrice+"--------");
+            Statement purchaseUpdate=purchaseConnection.createStatement();
+            ResultSet currentBalanceSet=purchaseUpdate.executeQuery("SELECT CURRENTBALANCE FROM STORE");
+            double currentBalance = 0;
+            while(currentBalanceSet.next()) {
+                currentBalance= currentBalanceSet.getDouble(1);
+            }
+            double updatedBalance= currentBalance-totalPurchasePrice;
+            PreparedStatement purchaseUpdateStatement=purchaseConnection.prepareStatement("UPDATE STORE SET CURRENTBALANCE=?");
+            purchaseUpdateStatement.setDouble(1,updatedBalance);
+            purchaseUpdateStatement.executeUpdate();
         }
     }
 }
